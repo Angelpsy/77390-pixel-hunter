@@ -115,16 +115,21 @@ const addArrows = () => {
   document.body.appendChild(wrapperEl);
 };
 
-const addEventListeners = () => {
-  document.addEventListener(`keydown`, handlerKeyDown);
+const addEventListenersToArrows = () => {
   document.querySelector(`.${ELEMENTS_CLASSES.arrowLeft}`).addEventListener(`click`, showPrevScreen);
   document.querySelector(`.${ELEMENTS_CLASSES.arrowRight}`).addEventListener(`click`, showNextScreen);
+};
+
+
+const addCommonEventListeners = () => {
+  document.addEventListener(`keydown`, handlerKeyDown);
 };
 
 const init = () => {
   showScreen(indexCurrentScreen);
   addArrows();
-  addEventListeners();
+  addEventListenersToArrows();
+  addCommonEventListeners();
 };
 
 init();
