@@ -61,13 +61,9 @@ const screens = SCREENS_REFS.allIds
 
 let indexCurrentScreen = 0;
 
-const insertElement = (el, parent) => {
-  parent.innerHTML = ``;
-  parent.appendChild(el.cloneNode(true));
-};
-
 const showScreen = (numberScreen) => {
-  insertElement(screens[numberScreen].template.content, ROOT_EL);
+  ROOT_EL.innerHTML = ``;
+  ROOT_EL.appendChild(screens[numberScreen].template.content.cloneNode(true));
 };
 
 const showNextScreen = () => {
