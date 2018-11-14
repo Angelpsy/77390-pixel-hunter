@@ -54,6 +54,8 @@ const SCREENS_REFS = {
 const screens = SCREENS_REFS.allIds
   .map((id) => SCREENS_REFS.byId[id]);
 
+let indexCurrentScreen = 0;
+
 const insertElement = (el, parent) => {
   parent.innerHTML = ``;
   parent.appendChild(el.cloneNode(true));
@@ -63,5 +65,44 @@ const showScreen = (numberScreen) => {
   insertElement(screens[numberScreen].template.content, ROOT_EL);
 };
 
-showScreen(0);
+const showNextScreen = (indexScreen) => {
+  if (indexScreen >= screens.length - 1) {
+    return indexScreen;
+  }
+  const indexNextScreen = indexScreen + 1;
+  showScreen(indexNextScreen);
+  return indexNextScreen;
+};
+
+const showPrevScreen = (indexScreen) => {
+  if (indexScreen <= 0) {
+    return indexScreen;
+  }
+  const indexPrevScreen = indexScreen - 1;
+  showScreen(indexPrevScreen);
+  return indexPrevScreen;
+};
+
+const handlerKeyDown = (event) => {
+  const keyCode = event.code;
+  switch (keyCode) {
+    case `ArrowRight`:
+      indexCurrentScreen = showNextScreen(indexCurrentScreen);
+      break;
+    case `ArrowLeft`:
+      indexCurrentScreen = showPrevScreen(indexCurrentScreen);
+      break;
+  }
+};
+
+const addEventListeners = () => {
+  document.addEventListener(`keydown`, handlerKeyDown);
+};
+
+const init = () => {
+  showScreen(indexCurrentScreen);
+  addEventListeners();
+};
+
+init();
 
