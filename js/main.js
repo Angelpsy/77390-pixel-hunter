@@ -59,25 +59,26 @@ const elementsClasses = {
 const screens = SCREENS_REFS.allIds
   .map((id) => SCREENS_REFS.byId[id]);
 
-let indexCurrentScreen = 0;
+let indexCurrentScreen;
 
 const showScreen = (numberScreen) => {
   ROOT_EL.innerHTML = ``;
   ROOT_EL.appendChild(screens[numberScreen].template.content.cloneNode(true));
+  indexCurrentScreen = numberScreen;
 };
 
 const showNextScreen = () => {
   if (indexCurrentScreen >= screens.length - 1) {
     return;
   }
-  showScreen(++indexCurrentScreen);
+  showScreen(indexCurrentScreen + 1);
 };
 
 const showPrevScreen = () => {
   if (indexCurrentScreen <= 0) {
     return;
   }
-  showScreen(--indexCurrentScreen);
+  showScreen(indexCurrentScreen - 1);
 };
 
 const handlerKeyDown = (event) => {
@@ -126,7 +127,7 @@ const addCommonEventListeners = () => {
 };
 
 const init = () => {
-  showScreen(indexCurrentScreen);
+  showScreen(0);
   addArrows();
   addEventListenersToArrows();
   addCommonEventListeners();
