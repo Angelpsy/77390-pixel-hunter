@@ -51,6 +51,11 @@ const SCREENS_REFS = {
   ],
 };
 
+const ELEMENTS_CLASSES = {
+  arrowLeft: `js-arrows-left`,
+  arrowRight: `js-arrows-right`,
+};
+
 const screens = SCREENS_REFS.allIds
   .map((id) => SCREENS_REFS.byId[id]);
 
@@ -65,42 +70,64 @@ const showScreen = (numberScreen) => {
   insertElement(screens[numberScreen].template.content, ROOT_EL);
 };
 
-const showNextScreen = (indexScreen) => {
-  if (indexScreen >= screens.length - 1) {
-    return indexScreen;
+const showNextScreen = () => {
+  if (indexCurrentScreen >= screens.length - 1) {
+    return;
   }
-  const indexNextScreen = indexScreen + 1;
-  showScreen(indexNextScreen);
-  return indexNextScreen;
+  showScreen(++indexCurrentScreen);
 };
 
-const showPrevScreen = (indexScreen) => {
-  if (indexScreen <= 0) {
-    return indexScreen;
+const showPrevScreen = () => {
+  if (indexCurrentScreen <= 0) {
+    return;
   }
-  const indexPrevScreen = indexScreen - 1;
-  showScreen(indexPrevScreen);
-  return indexPrevScreen;
+  showScreen(--indexCurrentScreen);
 };
 
 const handlerKeyDown = (event) => {
   const keyCode = event.code;
   switch (keyCode) {
     case `ArrowRight`:
-      indexCurrentScreen = showNextScreen(indexCurrentScreen);
+      showNextScreen();
       break;
     case `ArrowLeft`:
-      indexCurrentScreen = showPrevScreen(indexCurrentScreen);
+      showPrevScreen();
       break;
   }
 };
 
+const addArrows = () => {
+  const wrapperEl = document.createElement(`div`);
+  wrapperEl.className = `arrows__wrap`;
+  wrapperEl.innerHTML = `
+        <style>
+          .arrows__wrap {
+            position: absolute;
+            top: 95px;
+            left: 50%;
+            margin-left: -56px;
+          }
+          .arrows__btn {
+            background: none;
+            border: 2px solid black;
+            padding: 5px 20px;
+          }
+        </style>
+        <button class="arrows__btn ${ELEMENTS_CLASSES.arrowLeft}"><-</button>
+        <button class="arrows__btn ${ELEMENTS_CLASSES.arrowRight}">-></button>  
+  `;
+  document.body.appendChild(wrapperEl);
+};
+
 const addEventListeners = () => {
   document.addEventListener(`keydown`, handlerKeyDown);
+  document.querySelector(`.${ELEMENTS_CLASSES.arrowLeft}`).addEventListener(`click`, showPrevScreen);
+  document.querySelector(`.${ELEMENTS_CLASSES.arrowRight}`).addEventListener(`click`, showNextScreen);
 };
 
 const init = () => {
   showScreen(indexCurrentScreen);
+  addArrows();
   addEventListeners();
 };
 
