@@ -51,9 +51,9 @@ const SCREENS_REFS = {
   ],
 };
 
-const ELEMENTS_CLASSES = {
-  arrowLeft: `js-arrows-left`,
-  arrowRight: `js-arrows-right`,
+const elementsClasses = {
+  ARROW_LEFT: `js-arrows-left`,
+  ARROW_RIGHT: `js-arrows-right`,
 };
 
 const screens = SCREENS_REFS.allIds
@@ -109,15 +109,15 @@ const addArrows = () => {
             padding: 5px 20px;
           }
         </style>
-        <button class="arrows__btn ${ELEMENTS_CLASSES.arrowLeft}"><-</button>
-        <button class="arrows__btn ${ELEMENTS_CLASSES.arrowRight}">-></button>  
+        <button class="arrows__btn ${elementsClasses.ARROW_LEFT}"><-</button>
+        <button class="arrows__btn ${elementsClasses.ARROW_RIGHT}">-></button>  
   `;
   document.body.appendChild(wrapperEl);
 };
 
 const addEventListenersToArrows = () => {
-  document.querySelector(`.${ELEMENTS_CLASSES.arrowLeft}`).addEventListener(`click`, showPrevScreen);
-  document.querySelector(`.${ELEMENTS_CLASSES.arrowRight}`).addEventListener(`click`, showNextScreen);
+  document.querySelector(`.${elementsClasses.ARROW_LEFT}`).addEventListener(`click`, showPrevScreen);
+  document.querySelector(`.${elementsClasses.ARROW_RIGHT}`).addEventListener(`click`, showNextScreen);
 };
 
 
