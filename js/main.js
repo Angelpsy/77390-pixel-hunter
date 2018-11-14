@@ -1,3 +1,7 @@
+'use strict';
+
+const ROOT_EL = document.querySelector(`#main`);
+
 const SCREENS_REFS = {
   byId: {
     intro: {
@@ -49,4 +53,15 @@ const SCREENS_REFS = {
 
 const screens = SCREENS_REFS.allIds
   .map((id) => SCREENS_REFS.byId[id]);
+
+const insertElement = (el, parent) => {
+  parent.innerHTML = ``;
+  parent.appendChild(el.cloneNode(true));
+};
+
+const showScreen = (numberScreen) => {
+  insertElement(screens[numberScreen].template.content, ROOT_EL);
+};
+
+showScreen(0);
 
