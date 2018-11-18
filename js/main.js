@@ -1,5 +1,3 @@
-'use strict';
-
 const ROOT_EL = document.querySelector(`#main`);
 
 const SCREENS_REFS = {
