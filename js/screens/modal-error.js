@@ -1,6 +1,6 @@
 import {getElementFromString} from '../utils';
 
-const template = `
+const TEMPLATE = `
 <section class="modal">
     <div class="modal__inner">
       <h2 class="modal__title">Произошла ошибка!</h2>
@@ -9,4 +9,4 @@ const template = `
 </section>
 `;
 
-export default getElementFromString(template);
+export default getElementFromString(TEMPLATE);

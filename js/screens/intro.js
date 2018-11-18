@@ -2,7 +2,7 @@ import {getElementFromString} from '../utils';
 import {showScreen} from './utils';
 import renderNextScreen from './greeting';
 
-const template = `
+const TEMPLATE = `
   <section class="intro">
     <button class="intro__asterisk asterisk" type="button"><span class="visually-hidden">Продолжить</span>*</button>
     <p class="intro__motto"><sup>*</sup> Это не фото. Это рисунок маслом нидерландского художника-фотореалиста Tjalf Sparnaay.</p>
@@ -22,7 +22,7 @@ const addEventListeners = () => {
   document.querySelector(`.intro__asterisk`).addEventListener(`click`, goNextScreen);
 };
 
-const el = getElementFromString(template);
+const el = getElementFromString(TEMPLATE);
 
 const render = () => {
   showScreen(el);

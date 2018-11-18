@@ -2,7 +2,7 @@ import {getElementFromString} from '../utils';
 import {showScreen} from './utils';
 import renderNextScreen from './rules';
 
-const template = `
+const TEMPLATE = `
 <section class="greeting central--blur">
     <img class="greeting__logo" src="img/logo_ph-big.svg" width="201" height="89" alt="Pixel Hunter">
     <div class="greeting__asterisk asterisk"><span class="visually-hidden">Я просто красивая звёздочка</span>*</div>
@@ -39,7 +39,7 @@ const addEventListeners = () => {
   document.querySelector(`.greeting__continue `).addEventListener(`click`, goNextScreen);
 };
 
-const el = getElementFromString(template);
+const el = getElementFromString(TEMPLATE);
 
 const render = () => {
   showScreen(el);

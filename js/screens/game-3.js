@@ -3,7 +3,7 @@ import {showScreen} from './utils';
 import renderNextScreen from './stats';
 import renderFirstScreen from './greeting';
 
-const template = `
+const TEMPLATE = `
 <header class="header">
     <button class="back">
       <span class="visually-hidden">Вернуться к началу</span>
@@ -76,7 +76,7 @@ const addEventListeners = () => {
   document.querySelector(`.game__content`).addEventListener(`click`, handlerClick);
 };
 
-const el = getElementFromString(template);
+const el = getElementFromString(TEMPLATE);
 
 const render = () => {
   showScreen(el);

@@ -2,7 +2,7 @@ import {getElementFromString} from '../utils';
 import {showScreen} from './utils';
 import renderFirstScreen from './greeting';
 
-const template = `
+const TEMPLATE = `
 <header class="header">
     <button class="back">
       <span class="visually-hidden">Вернуться к началу</span>
@@ -129,7 +129,7 @@ const addEventListeners = () => {
   document.querySelector(`.back`).addEventListener(`click`, goFirstScreen);
 };
 
-const el = getElementFromString(template);
+const el = getElementFromString(TEMPLATE);
 
 const render = () => {
   showScreen(el);

@@ -1,6 +1,6 @@
 import {getElementFromString} from '../utils';
 
-const template = `
+const TEMPLATE = `
 <section class="modal">
     <form class="modal__inner">
       <button class="modal__close" type="button">
@@ -16,4 +16,4 @@ const template = `
   </section>
 `;
 
-export default getElementFromString(template);
+export default getElementFromString(TEMPLATE);
