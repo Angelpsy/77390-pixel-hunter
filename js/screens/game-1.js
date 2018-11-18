@@ -1,4 +1,7 @@
 import {getElementFromString} from '../utils';
+import {showScreen} from './utils';
+import renderNextScreen from './game-2';
+import renderFirstScreen from './greeting';
 
 const template = `
 <header class="header">
@@ -59,4 +62,50 @@ const template = `
 </section>
 `;
 
-export default getElementFromString(template);
+const DEFAULT_ANSWERS = {
+  question1: undefined,
+  question2: undefined,
+};
+
+let answers = {};
+
+const goNextScreen = () => {
+  removeEventListeners();
+  renderNextScreen();
+};
+
+const goFirstScreen = () => {
+  removeEventListeners();
+  renderFirstScreen();
+};
+
+const handlerChangeAnswer = (event) => {
+  answers[event.target.name] = event.target.value;
+  const isAllAnswers = Object.keys(answers).every((key) => {
+    return answers[key] !== undefined;
+  });
+
+  if (isAllAnswers) {
+    goNextScreen();
+  }
+};
+
+const removeEventListeners = () => {
+  document.querySelector(`.back`).removeEventListener(`click`, goFirstScreen);
+  document.querySelector(`.game__content`).removeEventListener(`change`, handlerChangeAnswer);
+};
+
+const addEventListeners = () => {
+  document.querySelector(`.back`).addEventListener(`click`, goFirstScreen);
+  document.querySelector(`.game__content`).addEventListener(`change`, handlerChangeAnswer);
+};
+
+const el = getElementFromString(template);
+
+const render = () => {
+  showScreen(el);
+  answers = Object.assign({}, DEFAULT_ANSWERS);
+  addEventListeners();
+};
+
+export default render;

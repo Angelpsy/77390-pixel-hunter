@@ -1,4 +1,6 @@
 import {getElementFromString} from '../utils';
+import {showScreen} from './utils';
+import renderNextScreen from './greeting';
 
 const template = `
   <section class="intro">
@@ -7,4 +9,24 @@ const template = `
   </section>
 `;
 
-export default getElementFromString(template);
+const goNextScreen = () => {
+  removeEventListeners();
+  renderNextScreen();
+};
+
+const removeEventListeners = () => {
+  document.querySelector(`.intro__asterisk`).removeEventListener(`click`, goNextScreen);
+};
+
+const addEventListeners = () => {
+  document.querySelector(`.intro__asterisk`).addEventListener(`click`, goNextScreen);
+};
+
+const el = getElementFromString(template);
+
+const render = () => {
+  showScreen(el);
+  addEventListeners();
+};
+
+export default render;

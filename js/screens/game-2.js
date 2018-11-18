@@ -1,4 +1,7 @@
 import {getElementFromString} from '../utils';
+import {showScreen} from './utils';
+import renderNextScreen from './game-3';
+import renderFirstScreen from './greeting';
 
 const template = `
 <header class="header">
@@ -48,4 +51,31 @@ const template = `
   </section>
 `;
 
-export default getElementFromString(template);
+const goNextScreen = () => {
+  removeEventListeners();
+  renderNextScreen();
+};
+
+const goFirstScreen = () => {
+  removeEventListeners();
+  renderFirstScreen();
+};
+
+const removeEventListeners = () => {
+  document.querySelector(`.game__content`).removeEventListener(`change`, goNextScreen); // todo
+  document.querySelector(`.back`).removeEventListener(`click`, goFirstScreen);
+};
+
+const addEventListeners = () => {
+  document.querySelector(`.game__content`).addEventListener(`change`, goNextScreen); // todo
+  document.querySelector(`.back`).addEventListener(`click`, goFirstScreen);
+};
+
+const el = getElementFromString(template);
+
+const render = () => {
+  showScreen(el);
+  addEventListeners();
+};
+
+export default render;

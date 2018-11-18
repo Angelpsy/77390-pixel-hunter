@@ -1,4 +1,7 @@
 import {getElementFromString} from '../utils';
+import {showScreen} from './utils';
+import renderNextScreen from './stats';
+import renderFirstScreen from './greeting';
 
 const template = `
 <header class="header">
@@ -20,7 +23,7 @@ const template = `
   </header>
   <section class="game">
     <p class="game__task">Найдите рисунок среди изображений</p>
-    <form class="game__content  game__content--triple">
+    <form class="game__content game__content--triple">
       <div class="game__option">
         <img src="http://placehold.it/304x455" alt="Option 1" width="304" height="455">
       </div>
@@ -46,4 +49,38 @@ const template = `
   </section>
 `;
 
-export default getElementFromString(template);
+const goNextScreen = () => {
+  removeEventListeners();
+  renderNextScreen();
+};
+
+const goFirstScreen = () => {
+  removeEventListeners();
+  renderFirstScreen();
+};
+
+const handlerClick = (event) => {
+  if (!event.target.closest(`.game__option`)) {
+    return;
+  }
+
+  goNextScreen();
+};
+
+const removeEventListeners = () => {
+  document.querySelector(`.back`).removeEventListener(`click`, goFirstScreen);
+  document.querySelector(`.game__content`).removeEventListener(`click`, handlerClick);
+};
+const addEventListeners = () => {
+  document.querySelector(`.back`).addEventListener(`click`, goFirstScreen);
+  document.querySelector(`.game__content`).addEventListener(`click`, handlerClick);
+};
+
+const el = getElementFromString(template);
+
+const render = () => {
+  showScreen(el);
+  addEventListeners();
+};
+
+export default render;

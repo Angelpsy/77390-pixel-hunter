@@ -1,4 +1,7 @@
 import {getElementFromString} from '../utils';
+import {showScreen} from './utils';
+import renderNextScreen from './game-1';
+import renderFirstScreen from './greeting';
 
 const template = `
 <header class="header">
@@ -30,4 +33,50 @@ const template = `
 </section>
 `;
 
-export default getElementFromString(template);
+let userName;
+
+const goNextScreen = () => {
+  removeEventListeners();
+  renderNextScreen();
+};
+
+const goFirstScreen = () => {
+  removeEventListeners();
+  renderFirstScreen();
+};
+
+const handlerInputName = (event) => {
+  userName = event.target.value;
+  handlerChangeUserName();
+};
+
+const handlerChangeUserName = () => {
+  if (userName) {
+    document.querySelector(`.rules__button`).removeAttribute(`disabled`);
+  } else {
+    document.querySelector(`.rules__button`).setAttribute(`disabled`, true);
+  }
+  document.querySelector(`.rules__input`).value = userName !== undefined ? userName : ``;
+};
+
+const removeEventListeners = () => {
+  document.querySelector(`.rules__form`).removeEventListener(`submit`, goNextScreen);
+  document.querySelector(`.rules__input`).removeEventListener(`input`, handlerInputName);
+  document.querySelector(`.back`).removeEventListener(`click`, goFirstScreen);
+};
+
+const addEventListeners = () => {
+  document.querySelector(`.rules__form`).addEventListener(`submit`, goNextScreen);
+  document.querySelector(`.rules__input`).addEventListener(`input`, handlerInputName);
+  document.querySelector(`.back`).addEventListener(`click`, goFirstScreen);
+};
+
+const el = getElementFromString(template);
+
+const render = () => {
+  showScreen(el);
+  handlerChangeUserName();
+  addEventListeners();
+};
+
+export default render;

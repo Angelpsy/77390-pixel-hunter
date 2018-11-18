@@ -1,4 +1,6 @@
 import {getElementFromString} from '../utils';
+import {showScreen} from './utils';
+import renderNextScreen from './rules';
 
 const template = `
 <section class="greeting central--blur">
@@ -6,6 +8,7 @@ const template = `
     <div class="greeting__asterisk asterisk"><span class="visually-hidden">Я просто красивая звёздочка</span>*</div>
     <div class="greeting__challenge">
       <h3 class="greeting__challenge-title">Лучшие художники-фотореалисты бросают тебе вызов!</h3>
+      <p class="greeting__challenge-text">Правила игры просты:</p>
       <p class="greeting__challenge-text">Правила игры просты:</p>
       <ul class="greeting__challenge-list">
         <li>Нужно отличить рисунок от фотографии и сделать выбор.</li>
@@ -23,4 +26,24 @@ const template = `
   </section>
 `;
 
-export default getElementFromString(template);
+const goNextScreen = () => {
+  removeEventListeners();
+  renderNextScreen();
+};
+
+const removeEventListeners = () => {
+  document.querySelector(`.greeting__continue `).removeEventListener(`click`, goNextScreen);
+};
+
+const addEventListeners = () => {
+  document.querySelector(`.greeting__continue `).addEventListener(`click`, goNextScreen);
+};
+
+const el = getElementFromString(template);
+
+const render = () => {
+  showScreen(el);
+  addEventListeners();
+};
+
+export default render;

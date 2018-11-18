@@ -1,4 +1,6 @@
 import {getElementFromString} from '../utils';
+import {showScreen} from './utils';
+import renderFirstScreen from './greeting';
 
 const template = `
 <header class="header">
@@ -114,4 +116,24 @@ const template = `
   </section>
 `;
 
-export default getElementFromString(template);
+const goFirstScreen = () => {
+  removeEventListeners();
+  renderFirstScreen();
+};
+
+const removeEventListeners = () => {
+  document.querySelector(`.back`).removeEventListener(`click`, goFirstScreen);
+};
+
+const addEventListeners = () => {
+  document.querySelector(`.back`).addEventListener(`click`, goFirstScreen);
+};
+
+const el = getElementFromString(template);
+
+const render = () => {
+  showScreen(el);
+  addEventListeners();
+};
+
+export default render;
