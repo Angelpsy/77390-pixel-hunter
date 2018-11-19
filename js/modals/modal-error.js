@@ -1,4 +1,4 @@
-import {getElementFromString} from '../utils';
+import {getNodesFromString} from '../utils';
 
 const TEMPLATE = `
 <section class="modal">
@@ -9,4 +9,4 @@ const TEMPLATE = `
 </section>
 `;
 
-export default getElementFromString(TEMPLATE);
+export default getNodesFromString(TEMPLATE);

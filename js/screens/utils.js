@@ -1,5 +1,11 @@
 const ROOT_EL = document.querySelector(`#main`);
-export const showScreen = (el) => {
+
+/**
+ * @param {HTMLCollection} nodes
+ */
+export const showScreen = (nodes) => {
   ROOT_EL.innerHTML = ``;
-  ROOT_EL.appendChild(el.cloneNode(true));
+  [...nodes].forEach((node) => {
+    ROOT_EL.appendChild(node.cloneNode(true));
+  });
 };

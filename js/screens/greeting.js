@@ -1,4 +1,4 @@
-import {getElementFromString} from '../utils';
+import {getNodesFromString} from '../utils';
 import {showScreen} from './utils';
 import renderNextScreen from './rules';
 
@@ -39,10 +39,10 @@ const addEventListeners = () => {
   document.querySelector(`.greeting__continue `).addEventListener(`click`, goNextScreen);
 };
 
-const el = getElementFromString(TEMPLATE);
+const nodes = getNodesFromString(TEMPLATE);
 
 const render = () => {
-  showScreen(el);
+  showScreen(nodes);
   addEventListeners();
 };
 

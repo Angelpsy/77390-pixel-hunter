@@ -1,4 +1,4 @@
-import {getElementFromString} from '../utils';
+import {getNodesFromString} from '../utils';
 import {showScreen} from './utils';
 import renderNextScreen from './game-3';
 import renderFirstScreen from './greeting';
@@ -71,10 +71,10 @@ const addEventListeners = () => {
   document.querySelector(`.back`).addEventListener(`click`, goFirstScreen);
 };
 
-const el = getElementFromString(TEMPLATE);
+const nodes = getNodesFromString(TEMPLATE);
 
 const render = () => {
-  showScreen(el);
+  showScreen(nodes);
   addEventListeners();
 };
 
