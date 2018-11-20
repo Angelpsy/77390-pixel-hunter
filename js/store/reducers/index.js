@@ -1,3 +1,1 @@
-export const initState = (state) => {
-  return Object.assign({}, state);
-};
+export {initState} from './init';
