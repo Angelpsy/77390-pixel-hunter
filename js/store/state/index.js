@@ -1,7 +1,11 @@
 import {initState} from '../reducers/index';
 
-const INIT_STATE = {};
+export const INITIAL_STATE = {
+  level: 0,
+  lives: 2,
+  answers: [],
+};
 
-const state = initState(INIT_STATE);
+const state = initState(INITIAL_STATE);
 
 export default state;
