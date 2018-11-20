@@ -1,7 +1,7 @@
 import {expect} from 'chai';
 import {getResult} from './result';
 
-describe(`reducer initState`, () => {
+describe(`reducer getResult`, () => {
   it(`should return number`, () => {
     const state = {
       answers: [
