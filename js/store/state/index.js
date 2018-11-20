@@ -1,8 +1,9 @@
 import {initState} from '../reducers/index';
+import CONFIG_GAME from '../../configGame';
 
 export const INITIAL_STATE = {
   level: 0,
-  lives: 2,
+  lives: CONFIG_GAME.maxLives,
   answers: [],
 };
 
