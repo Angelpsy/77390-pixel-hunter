@@ -1,5 +1,6 @@
 import {expect} from 'chai';
 import {getResult} from './result';
+import ConfigGame from '../../configGame';
 
 describe(`reducer getResult`, () => {
   it(`should return number`, () => {
@@ -36,7 +37,7 @@ describe(`reducer getResult`, () => {
     const result = getResult(state);
     expect(typeof result).to.equal(`number`);
   });
-  it(`should return -1 when answers.length < 10`, () => {
+  it(`should return -1 when answers.length < amount questions`, () => {
     const state = {
       answers: [
         {
@@ -64,9 +65,52 @@ describe(`reducer getResult`, () => {
           isCorrect: true,
           time: 25,
         },
+        {
+          index: 5,
+          isCorrect: true,
+          time: 25,
+        },
+        {
+          index: 5,
+          isCorrect: true,
+          time: 25,
+        },
+        {
+          index: 5,
+          isCorrect: true,
+          time: 25,
+        },
+        {
+          index: 5,
+          isCorrect: true,
+          time: 25,
+        },
+        {
+          index: 5,
+          isCorrect: true,
+          time: 25,
+        },
+        {
+          index: 5,
+          isCorrect: true,
+          time: 25,
+        },
+        {
+          index: 5,
+          isCorrect: true,
+          time: 25,
+        },
+        {
+          index: 5,
+          isCorrect: true,
+          time: 25,
+        },
       ],
       lives: 1,
     };
+    if (state.answers.length >= ConfigGame.AMOUNT_QUESTIONS) {
+      state.answers = state.answers.slice(0, ConfigGame.AMOUNT_QUESTIONS - 1);
+    }
     const result = getResult(state);
     expect(result).to.equal(-1);
   });
@@ -107,6 +151,9 @@ describe(`reducer getResult`, () => {
       ],
       lives: 1,
     };
+    if (state.answers.length >= ConfigGame.AMOUNT_QUESTIONS) {
+      state.answers = state.answers.slice(0, ConfigGame.AMOUNT_QUESTIONS - 1);
+    }
     const result = getResult(state);
     expect(result).to.equal(-1);
   });

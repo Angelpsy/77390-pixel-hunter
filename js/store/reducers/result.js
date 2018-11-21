@@ -9,7 +9,7 @@ export const getResult = (state) => {
     && answer.isCorrect !== undefined
     && answer.time !== undefined
   );
-  if (_answers.length < 10) {
+  if (_answers.length < ConfigGame.AMOUNT_QUESTIONS) {
     return -1;
   }
   let points = 0;
