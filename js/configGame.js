@@ -1,4 +1,4 @@
-const Config = {
+const Config = Object.freeze({
   MAX_LIVES: 3,
   AMOUNT_QUESTIONS: 10,
   TIME_ANSWER_FAST: 10,
@@ -7,6 +7,6 @@ const Config = {
   POINT_FOR_CORRECT_FAST_ANSWER: 50,
   POINT_FOR_CORRECT_SLOW_ANSWER: 50,
   POINT_FOR_ONE_LIVE: 50,
-};
+});
 
 export default Config;
