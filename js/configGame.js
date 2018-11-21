@@ -1,12 +1,12 @@
-const CONFIG = {
-  maxLives: 3,
-  amountQuestions: 10,
-  timeAnswerFast: 10,
-  timeAnswerSlow: 20,
-  pointForCorrectAnswer: 100,
-  pointForCorrectFastAnswer: 50,
-  pointForCorrectSlowAnswer: 50,
-  pointForOneLive: 50,
+const Config = {
+  MAX_LIVES: 3,
+  AMOUNT_QUESTIONS: 10,
+  TIME_ANSWER_FAST: 10,
+  TIME_ANSWER_SLOW: 20,
+  POINT_FOR_CORRECT_ANSWER: 100,
+  POINT_FOR_CORRECT_FAST_ANSWER: 50,
+  POINT_FOR_CORRECT_SLOW_ANSWER: 50,
+  POINT_FOR_ONE_LIVE: 50,
 };
 
-export default CONFIG;
+export default Config;

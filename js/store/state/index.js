@@ -3,7 +3,7 @@ import CONFIG_GAME from '../../configGame';
 
 export const INITIAL_STATE = {
   level: 0,
-  lives: CONFIG_GAME.maxLives,
+  lives: CONFIG_GAME.MAX_LIVES,
   answers: [],
 };
 

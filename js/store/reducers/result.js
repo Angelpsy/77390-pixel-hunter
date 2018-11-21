@@ -1,4 +1,4 @@
-import CONFIG_GAME from '../../configGame';
+import ConfigGame from '../../configGame';
 
 /**
  * @param {{answers: {}[], lives: number}} state
@@ -15,15 +15,15 @@ export const getResult = (state) => {
   let points = 0;
   _answers.forEach((answer) => {
     if (answer.isCorrect) {
-      points += CONFIG_GAME.pointForCorrectAnswer;
+      points += ConfigGame.POINT_FOR_CORRECT_ANSWER;
 
-      if (answer.time <= CONFIG_GAME.timeAnswerFast) {
-        points += CONFIG_GAME.pointForCorrectFastAnswer;
-      } else if (answer.time >= CONFIG_GAME.timeAnswerSlow) {
-        points -= CONFIG_GAME.pointForCorrectSlowAnswer;
+      if (answer.time <= ConfigGame.TIME_ANSWER_FAST) {
+        points += ConfigGame.POINT_FOR_CORRECT_FAST_ANSWER;
+      } else if (answer.time >= ConfigGame.TIME_ANSWER_SLOW) {
+        points -= ConfigGame.POINT_FOR_CORRECT_SLOW_ANSWER;
       }
     }
   });
-  points += state.lives * CONFIG_GAME.pointForOneLive;
+  points += state.lives * ConfigGame.POINT_FOR_ONE_LIVE;
   return points;
 };
