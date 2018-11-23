@@ -9,24 +9,24 @@ const TEMPLATE = `
   </section>
 `;
 
-const goNextScreen = () => {
+const goNextScreen = (state) => {
   removeEventListeners();
-  renderNextScreen();
+  renderNextScreen(state);
 };
 
 const removeEventListeners = () => {
   document.querySelector(`.intro__asterisk`).removeEventListener(`click`, goNextScreen);
 };
 
-const addEventListeners = () => {
-  document.querySelector(`.intro__asterisk`).addEventListener(`click`, goNextScreen);
+const addEventListeners = (state) => {
+  document.querySelector(`.intro__asterisk`).addEventListener(`click`, goNextScreen.bind(null, state));
 };
 
 const nodes = getNodesFromString(TEMPLATE);
 
-const render = () => {
+const render = (state) => {
   showScreen(nodes);
-  addEventListeners();
+  addEventListeners(state);
 };
 
 export default render;

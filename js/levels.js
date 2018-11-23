@@ -1,3 +1,5 @@
+import ConfigGameScreens from './configGameScreens';
+
 const images = {
   paintings: [
     `https://k42.kn3.net/CF42609C8.jpg`,
@@ -11,21 +13,9 @@ const images = {
   ]
 };
 
-const TypesLevels = {
-  oneImage: {
-    id: `oneImage`,
-  },
-  twoImages: {
-    id: `twoImages`,
-  },
-  threeImages: {
-    id: `threeImages`
-  },
-};
-
 const levels = [
   {
-    type: TypesLevels.oneImage.id,
+    type: ConfigGameScreens.oneImage.id,
     questions: [
       {
         urls: [images.paintings[0]],
@@ -43,7 +33,7 @@ const levels = [
     ],
   },
   {
-    type: TypesLevels.twoImages.id,
+    type: ConfigGameScreens.twoImages.id,
     questions: [
       {
         urls: [images.paintings[1]],
@@ -74,7 +64,7 @@ const levels = [
     ],
   },
   {
-    type: TypesLevels.threeImages.id,
+    type: ConfigGameScreens.threeImages.id,
     questions: [
       {
         urls: [images.paintings[1], images.photos[1], images.photos[0]],
@@ -96,7 +86,7 @@ const levels = [
     ],
   },
   {
-    type: TypesLevels.oneImage.id,
+    type: ConfigGameScreens.oneImage.id,
     questions: [
       {
         urls: [images.paintings[0]],
@@ -114,7 +104,7 @@ const levels = [
     ],
   },
   {
-    type: TypesLevels.twoImages.id,
+    type: ConfigGameScreens.twoImages.id,
     questions: [
       {
         urls: [images.paintings[1]],
@@ -145,7 +135,7 @@ const levels = [
     ],
   },
   {
-    type: TypesLevels.threeImages.id,
+    type: ConfigGameScreens.threeImages.id,
     questions: [
       {
         urls: [images.paintings[1], images.photos[1], images.photos[0]],
@@ -167,7 +157,7 @@ const levels = [
     ],
   },
   {
-    type: TypesLevels.oneImage.id,
+    type: ConfigGameScreens.oneImage.id,
     questions: [
       {
         urls: [images.paintings[0]],
@@ -185,7 +175,7 @@ const levels = [
     ],
   },
   {
-    type: TypesLevels.twoImages.id,
+    type: ConfigGameScreens.twoImages.id,
     questions: [
       {
         urls: [images.paintings[1]],
@@ -216,7 +206,7 @@ const levels = [
     ],
   },
   {
-    type: TypesLevels.threeImages.id,
+    type: ConfigGameScreens.threeImages.id,
     questions: [
       {
         urls: [images.paintings[1], images.photos[1], images.photos[0]],
@@ -238,7 +228,7 @@ const levels = [
     ],
   },
   {
-    type: TypesLevels.threeImages.id,
+    type: ConfigGameScreens.threeImages.id,
     questions: [
       {
         urls: [images.paintings[1], images.photos[1], images.photos[0]],

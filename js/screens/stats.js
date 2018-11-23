@@ -116,24 +116,24 @@ const TEMPLATE = `
   </section>
 `;
 
-const goFirstScreen = () => {
+const goFirstScreen = (state) => {
   removeEventListeners();
-  renderFirstScreen();
+  renderFirstScreen(state);
 };
 
 const removeEventListeners = () => {
   document.querySelector(`.back`).removeEventListener(`click`, goFirstScreen);
 };
 
-const addEventListeners = () => {
-  document.querySelector(`.back`).addEventListener(`click`, goFirstScreen);
+const addEventListeners = (state) => {
+  document.querySelector(`.back`).addEventListener(`click`, goFirstScreen.bind(null, state));
 };
 
 const nodes = getNodesFromString(TEMPLATE);
 
-const render = () => {
+const render = (state) => {
   showScreen(nodes);
-  addEventListeners();
+  addEventListeners(state);
 };
 
 export default render;
