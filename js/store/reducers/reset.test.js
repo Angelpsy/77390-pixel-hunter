@@ -12,11 +12,12 @@ describe(`reducer resetGame`, () => {
   });
 
   it(`should contain property level equal property level in second parameter`, () => {
-    [{level: 5}, {level: 10}, {level: 0}, {level: -15}].forEach((secondState) => {
-      const state = initState(INITIAL_STATE);
-      const result = resetGame(state, secondState);
-      expect(result.level).to.equal(secondState.level);
-    });
+    [{level: 5, answers: []}, {level: 10, answers: []}, {level: 0, answers: []}, {level: -15, answers: []}]
+      .forEach((secondState) => {
+        const state = initState(INITIAL_STATE);
+        const result = resetGame(state, secondState);
+        expect(result.level).to.equal(secondState.level);
+      });
   });
 
   it(`should reset state after change level`, () => {
