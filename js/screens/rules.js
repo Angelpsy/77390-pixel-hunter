@@ -1,7 +1,9 @@
 import {getNodesFromString} from '../utils';
 import {showScreen} from './utils';
-import renderNextScreen from './game-1';
+import renderNextScreen from './level';
 import renderFirstScreen from './greeting';
+import {resetGame} from '../store/reducers/index';
+import {INITIAL_STATE} from '../store/state/index';
 
 const TEMPLATE = `
 <header class="header">
@@ -35,14 +37,15 @@ const TEMPLATE = `
 
 let userName;
 
-const goNextScreen = () => {
+const goNextScreen = (state) => {
   removeEventListeners();
-  renderNextScreen();
+  let _state = resetGame(state, INITIAL_STATE);
+  renderNextScreen(_state);
 };
 
-const goFirstScreen = () => {
+const goFirstScreen = (state) => {
   removeEventListeners();
-  renderFirstScreen();
+  renderFirstScreen(state);
 };
 
 const handlerInputName = (event) => {
@@ -65,18 +68,18 @@ const removeEventListeners = () => {
   document.querySelector(`.back`).removeEventListener(`click`, goFirstScreen);
 };
 
-const addEventListeners = () => {
-  document.querySelector(`.rules__form`).addEventListener(`submit`, goNextScreen);
+const addEventListeners = (state) => {
+  document.querySelector(`.rules__form`).addEventListener(`submit`, goNextScreen.bind(null, state));
   document.querySelector(`.rules__input`).addEventListener(`input`, handlerInputName);
-  document.querySelector(`.back`).addEventListener(`click`, goFirstScreen);
+  document.querySelector(`.back`).addEventListener(`click`, goFirstScreen.bind(null, state));
 };
 
 const nodes = getNodesFromString(TEMPLATE);
 
-const render = () => {
+const render = (state) => {
   showScreen(nodes);
   handlerChangeUserName();
-  addEventListeners();
+  addEventListeners(state);
 };
 
 export default render;

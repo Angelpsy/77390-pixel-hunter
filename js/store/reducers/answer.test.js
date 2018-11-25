@@ -1,51 +1,57 @@
 import {expect} from 'chai';
-import {changeAnswer} from './answer';
+import {addAnswer} from './answer';
 import {initState} from './index';
 import {INITIAL_STATE} from '../state/index';
 
-describe(`reducer changeAnswer`, () => {
+describe(`reducer addAnswer`, () => {
   const answer0 = {
-    index: 0,
+    isCorrect: false,
   };
 
   const answer1 = {
-    index: 1,
+    isCorrect: true,
   };
 
-  const answer2 = {
-    index: 2,
-  };
+  const answer2 = {};
 
-  const answer3 = {
-    index: 3,
-  };
+  const answer3 = {};
 
   it(`should not mutate the state`, () => {
     const state = initState(INITIAL_STATE);
-    const result = changeAnswer(state, answer1);
+    const result = addAnswer(state, answer1);
     expect(result).to.not.equal(state);
   });
 
   it(`should not mutate the state.answers`, () => {
     const state = initState(INITIAL_STATE);
-    const result = changeAnswer(state, answer1);
+    const result = addAnswer(state, answer1);
     expect(result.answers).to.not.equal(state.answers);
   });
 
-  it(`answer should insert in state.answers`, () => {
+  it(`answer should push in state.answers`, () => {
     const state = initState(INITIAL_STATE);
-    const result = changeAnswer(state, answer1);
-    expect(result.answers).to.include(answer1);
+    const result = addAnswer(state, answer1);
+    expect(result.answers[result.answers.length - 1]).to.include(answer1);
   });
 
-  it(`answer should insert in state.answers[answer.index]`, () => {
-    [answer0, answer1, answer2, answer3].forEach(checkInsertOneAnswer);
+  it(`answer should push in state.answers`, () => {
+    [
+      [answer0, answer1, answer2, answer3],
+      [answer0, answer2, answer3],
+      [answer0, answer1, answer3],
+      [answer0],
+      [answer3],
+    ].forEach(checkPushOneAnswer);
   });
 });
 
 
-function checkInsertOneAnswer(answer) {
-  const state = initState(INITIAL_STATE);
-  const result = changeAnswer(state, answer);
-  expect(result.answers[answer.index]).to.equal(answer);
+function checkPushOneAnswer(answers) {
+  let state = initState(INITIAL_STATE);
+  answers.forEach((answer) => {
+    state = addAnswer(state, answer);
+  });
+  answers.forEach((answer, index) => {
+    expect(state.answers[index]).to.equal(answer);
+  });
 }

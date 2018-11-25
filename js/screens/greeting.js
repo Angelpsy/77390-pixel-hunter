@@ -26,24 +26,25 @@ const TEMPLATE = `
   </section>
 `;
 
-const goNextScreen = () => {
+const goNextScreen = (state) => {
   removeEventListeners();
-  renderNextScreen();
+  renderNextScreen(state);
 };
 
 const removeEventListeners = () => {
   document.querySelector(`.greeting__continue `).removeEventListener(`click`, goNextScreen);
 };
 
-const addEventListeners = () => {
-  document.querySelector(`.greeting__continue `).addEventListener(`click`, goNextScreen);
+const addEventListeners = (state) => {
+  document.querySelector(`.greeting__continue `)
+    .addEventListener(`click`, goNextScreen.bind(null, state));
 };
 
 const nodes = getNodesFromString(TEMPLATE);
 
-const render = () => {
+const render = (state) => {
   showScreen(nodes);
-  addEventListeners();
+  addEventListeners(state);
 };
 
 export default render;

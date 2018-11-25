@@ -1,92 +1,79 @@
 import {getNodesFromString} from '../utils';
 import {showScreen} from './utils';
-import renderNextScreen from './game-2';
+import renderNextScreen from './level';
 import renderFirstScreen from './greeting';
+import getGameHeader from './template-parts/game-header';
+import getGameStats from './template-parts/game-stats';
+import {changeLevel, addAnswer, decrementLives} from '../store/reducers/index';
 
-const TEMPLATE = `
-<header class="header">
-    <button class="back">
-      <span class="visually-hidden">Вернуться к началу</span>
-      <svg class="icon" width="45" height="45" viewBox="0 0 45 45" fill="#000000">
-        <use xlink:href="img/sprite.svg#arrow-left"></use>
-      </svg>
-      <svg class="icon" width="101" height="44" viewBox="0 0 101 44" fill="#000000">
-        <use xlink:href="img/sprite.svg#logo-small"></use>
-      </svg>
-    </button>
-    <div class="game__timer">NN</div>
-    <div class="game__lives">
-      <img src="img/heart__empty.svg" class="game__heart" alt=" Missed Life" width="31" height="27">
-      <img src="img/heart__full.svg" class="game__heart" alt="Life" width="31" height="27">
-      <img src="img/heart__full.svg" class="game__heart" alt="Life" width="31" height="27">
-    </div>
-</header>
-<section class="game">
-  <p class="game__task">Угадайте для каждого изображения фото или рисунок?</p>
-  <form class="game__content">
-    <div class="game__option">
-      <img src="http://placehold.it/468x458" alt="Option 1" width="468" height="458">
-      <label class="game__answer game__answer--photo">
-        <input class="visually-hidden" name="question1" type="radio" value="photo">
-        <span>Фото</span>
-      </label>
-      <label class="game__answer game__answer--paint">
-        <input class="visually-hidden" name="question1" type="radio" value="paint">
-        <span>Рисунок</span>
-      </label>
-    </div>
-    <div class="game__option">
-      <img src="http://placehold.it/468x458" alt="Option 2" width="468" height="458">
-      <label class="game__answer  game__answer--photo">
-        <input class="visually-hidden" name="question2" type="radio" value="photo">
-        <span>Фото</span>
-      </label>
-      <label class="game__answer  game__answer--paint">
-        <input class="visually-hidden" name="question2" type="radio" value="paint">
-        <span>Рисунок</span>
-      </label>
-    </div>
-  </form>
-  <ul class="stats">
-    <li class="stats__result stats__result--wrong"></li>
-    <li class="stats__result stats__result--slow"></li>
-    <li class="stats__result stats__result--fast"></li>
-    <li class="stats__result stats__result--correct"></li>
-    <li class="stats__result stats__result--unknown"></li>
-    <li class="stats__result stats__result--unknown"></li>
-    <li class="stats__result stats__result--unknown"></li>
-    <li class="stats__result stats__result--unknown"></li>
-    <li class="stats__result stats__result--unknown"></li>
-    <li class="stats__result stats__result--unknown"></li>
-  </ul>
-</section>
+const getGameSection = (state) => {
+  const levelState = state.levels[state.level];
+  return `
+    <section class="game">
+      <p class="game__task">Угадайте для каждого изображения фото или рисунок?</p>
+      <form class="game__content">
+        ${levelState.questions.map((question, index) => {
+    return `<div class="game__option">
+          <img src="${question.urls[0]}" alt="Option 1" width="468" height="458">
+          ${question.answers.allIds.map((id) => question.answers.byId[id]).map((answer) => {
+    return `
+            <label class="game__answer game__answer--${answer.value}">
+              <input class="visually-hidden" name="question${index + 1}" type="radio" value="${answer.value}">
+              <span>${answer.text}</span>
+            </label>          
+          `;
+  })
+          .join(``)}
+        </div>`;
+  }).join(``)}
+      </form>
+      ${getGameStats(state)}
+    </section>
 `;
+};
 
 const DEFAULT_ANSWERS = {
   question1: undefined,
   question2: undefined,
 };
 
-let answers = {};
+let _answers = {};
 
-const goNextScreen = () => {
-  removeEventListeners();
-  renderNextScreen();
+const checkIsCorrectAnswer = (state, answers) => {
+  const questions = state.levels[state.level].questions;
+  return questions.every((question, index) => {
+    return question.answers.byId[answers[index]].isCorrect;
+  });
 };
 
-const goFirstScreen = () => {
+const goNextScreen = (state) => {
   removeEventListeners();
-  renderFirstScreen();
+  const isCorrectAnswer = checkIsCorrectAnswer(state, [_answers.question1, _answers.question2]);
+  let _state;
+  _state = addAnswer(state, {
+    time: 15,
+    isCorrect: isCorrectAnswer,
+  });
+  if (!isCorrectAnswer) {
+    _state = decrementLives(_state);
+  }
+  _state = changeLevel(_state, state.level + 1);
+  renderNextScreen(_state);
 };
 
-const handlerChangeAnswer = (event) => {
-  answers[event.target.name] = event.target.value;
-  const isAllAnswers = Object.keys(answers).every((key) => {
-    return answers[key] !== undefined;
+const goFirstScreen = (state) => {
+  removeEventListeners();
+  renderFirstScreen(state);
+};
+
+const handlerChangeAnswer = (state, event) => {
+  _answers[event.target.name] = event.target.value;
+  const isAllAnswers = Object.keys(_answers).every((key) => {
+    return _answers[key] !== undefined;
   });
 
   if (isAllAnswers) {
-    goNextScreen();
+    goNextScreen(state);
   }
 };
 
@@ -95,17 +82,20 @@ const removeEventListeners = () => {
   document.querySelector(`.game__content`).removeEventListener(`change`, handlerChangeAnswer);
 };
 
-const addEventListeners = () => {
-  document.querySelector(`.back`).addEventListener(`click`, goFirstScreen);
-  document.querySelector(`.game__content`).addEventListener(`change`, handlerChangeAnswer);
+const addEventListeners = (state) => {
+  document.querySelector(`.back`).addEventListener(`click`, goFirstScreen.bind(null, state));
+  document.querySelector(`.game__content`)
+    .addEventListener(`change`, handlerChangeAnswer.bind(null, state));
 };
 
-const nodes = getNodesFromString(TEMPLATE);
+const getNodes = (state) => {
+  return getNodesFromString(getGameHeader(state) + getGameSection(state));
+};
 
-const render = () => {
-  showScreen(nodes);
-  answers = Object.assign({}, DEFAULT_ANSWERS);
-  addEventListeners();
+const render = (state) => {
+  showScreen(getNodes(state));
+  _answers = Object.assign({}, DEFAULT_ANSWERS);
+  addEventListeners(state);
 };
 
 export default render;
