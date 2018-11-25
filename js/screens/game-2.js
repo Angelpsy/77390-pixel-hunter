@@ -3,7 +3,7 @@ import {showScreen} from './utils';
 import renderNextScreen from './level';
 import renderFirstScreen from './greeting';
 import getGameHeader from './template-parts/game-header';
-import {changeLevel} from '../store/reducers/index';
+import {addAnswer, changeLevel} from '../store/reducers/index';
 
 const TEMPLATE = `
   <section class="game">
@@ -36,9 +36,23 @@ const TEMPLATE = `
   </section>
 `;
 
+let _answer;
+
+const checkIsCorrectAnswer = (state, answers) => {
+  const questions = state.levels[state.level].questions;
+  return questions.every((question, index) => {
+    return question.answers.byId[answers[index]].isCorrect;
+  });
+};
+
 const goNextScreen = (state) => {
   removeEventListeners();
-  const _state = changeLevel(state, state.level + 1);
+  let _state;
+  _state = addAnswer(state, {
+    time: 15,
+    isCorrect: checkIsCorrectAnswer(state, [_answer]),
+  });
+  _state = changeLevel(_state, state.level + 1);
   renderNextScreen(_state);
 };
 
@@ -47,13 +61,18 @@ const goFirstScreen = (state) => {
   renderFirstScreen(state);
 };
 
+const handlerChangeAnswer = (state, event) => {
+  _answer = event.target.value;
+  goNextScreen(state);
+};
+
 const removeEventListeners = () => {
-  document.querySelector(`.game__content`).removeEventListener(`change`, goNextScreen);
+  document.querySelector(`.game__content`).removeEventListener(`change`, handlerChangeAnswer);
   document.querySelector(`.back`).removeEventListener(`click`, goFirstScreen);
 };
 
 const addEventListeners = (state) => {
-  document.querySelector(`.game__content`).addEventListener(`change`, goNextScreen.bind(null, state));
+  document.querySelector(`.game__content`).addEventListener(`change`, handlerChangeAnswer.bind(null, state));
   document.querySelector(`.back`).addEventListener(`click`, goFirstScreen.bind(null, state));
 };
 

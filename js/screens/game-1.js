@@ -3,7 +3,7 @@ import {showScreen} from './utils';
 import renderNextScreen from './level';
 import renderFirstScreen from './greeting';
 import getGameHeader from './template-parts/game-header';
-import {changeLevel} from '../store/reducers/index';
+import {changeLevel, addAnswer} from '../store/reducers/index';
 
 const TEMPLATE = `
 <section class="game">
@@ -52,11 +52,23 @@ const DEFAULT_ANSWERS = {
   question2: undefined,
 };
 
-let answers = {};
+let _answers = {};
+
+const checkIsCorrectAnswer = (state, answers) => {
+  const questions = state.levels[state.level].questions;
+  return questions.every((question, index) => {
+    return question.answers.byId[answers[index]].isCorrect;
+  });
+};
 
 const goNextScreen = (state) => {
   removeEventListeners();
-  const _state = changeLevel(state, state.level + 1);
+  let _state;
+  _state = addAnswer(state, {
+    time: 15,
+    isCorrect: checkIsCorrectAnswer(state, [_answers.question1, _answers.question2]),
+  });
+  _state = changeLevel(_state, state.level + 1);
   renderNextScreen(_state);
 };
 
@@ -66,9 +78,9 @@ const goFirstScreen = (state) => {
 };
 
 const handlerChangeAnswer = (state, event) => {
-  answers[event.target.name] = event.target.value;
-  const isAllAnswers = Object.keys(answers).every((key) => {
-    return answers[key] !== undefined;
+  _answers[event.target.name] = event.target.value;
+  const isAllAnswers = Object.keys(_answers).every((key) => {
+    return _answers[key] !== undefined;
   });
 
   if (isAllAnswers) {
@@ -91,7 +103,7 @@ const nodes = getNodesFromString(getGameHeader() + TEMPLATE);
 
 const render = (state) => {
   showScreen(nodes);
-  answers = Object.assign({}, DEFAULT_ANSWERS);
+  _answers = Object.assign({}, DEFAULT_ANSWERS);
   addEventListeners(state);
 };
 
