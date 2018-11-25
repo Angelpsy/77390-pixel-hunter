@@ -4,7 +4,7 @@ import renderNextScreen from './level';
 import renderFirstScreen from './greeting';
 import getGameHeader from './template-parts/game-header';
 import getGameStats from './template-parts/game-stats';
-import {addAnswer, changeLevel} from '../store/reducers/index';
+import {addAnswer, changeLevel, decrementLives} from '../store/reducers/index';
 
 const getGameSection = (state) => {
   const levelState = state.levels[state.level];
@@ -42,11 +42,15 @@ const checkIsCorrectAnswer = (state, answers) => {
 
 const goNextScreen = (state) => {
   removeEventListeners();
+  const isCorrectAnswer = checkIsCorrectAnswer(state, [_answer]);
   let _state;
   _state = addAnswer(state, {
     time: 15,
-    isCorrect: checkIsCorrectAnswer(state, [_answer]),
+    isCorrect: isCorrectAnswer,
   });
+  if (!isCorrectAnswer) {
+    _state = decrementLives(_state);
+  }
   _state = changeLevel(_state, state.level + 1);
   renderNextScreen(_state);
 };

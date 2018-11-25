@@ -5,8 +5,7 @@ import renderStats from './template-parts/game-stats';
 import {getResult} from '../store/reducers/index';
 import ConfigGame from '../configGame';
 
-const getResultTable = (state) => {
-  const count = getResult(state);
+const getResultTable = (state, count) => {
   const fastLevels = state.answers
     .filter((answer) => answer.isCorrect && answer.time < ConfigGame.TIME_ANSWER_FAST).length;
   const slowLevels = state.answers
@@ -47,9 +46,9 @@ const getResultTable = (state) => {
         <tr>
           <td></td>
           <td class="result__extra">Бонус за жизни:</td>
-          <td class="result__extra">${lives - 1} <span class="stats__result stats__result--alive"></span></td>
+          <td class="result__extra">${lives} <span class="stats__result stats__result--alive"></span></td>
           <td class="result__points">× ${ConfigGame.POINT_FOR_ONE_LIVE}</td>
-          <td class="result__total">${(lives - 1) * ConfigGame.POINT_FOR_ONE_LIVE}</td>
+          <td class="result__total">${(lives) * ConfigGame.POINT_FOR_ONE_LIVE}</td>
         </tr>
         <tr>
           <td></td>
@@ -66,6 +65,7 @@ const getResultTable = (state) => {
 };
 
 const getSection = (state) => {
+  const count = getResult(state);
   return `
   <header class="header">
     <button class="back">
@@ -79,8 +79,8 @@ const getSection = (state) => {
     </button>
   </header>
   <section class="result">
-    <h2 class="result__title">Победа!</h2>
-    ${getResultTable(state)}
+    <h2 class="result__title">${count !== -1 ? `Победа!` : `FAIL`}</h2>
+    ${getResultTable(state, count)}
   </section>
 `;
 };
