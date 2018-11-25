@@ -5,7 +5,10 @@ import renderStats from './template-parts/game-stats';
 import {getResult} from '../store/reducers/index';
 import ConfigGame from '../configGame';
 
-const getResultTable = (state, count) => {
+const allGames = [];
+
+const getResultTable = (state) => {
+  const count = getResult(state);
   const fastLevels = state.answers
     .filter((answer) => answer.isCorrect && answer.time < ConfigGame.TIME_ANSWER_FAST).length;
   const slowLevels = state.answers
@@ -64,8 +67,8 @@ const getResultTable = (state, count) => {
   `;
 };
 
-const getSection = (state) => {
-  const count = getResult(state);
+const getSection = (games) => {
+  const count = getResult(games[games.length - 1]);
   return `
   <header class="header">
     <button class="back">
@@ -80,7 +83,7 @@ const getSection = (state) => {
   </header>
   <section class="result">
     <h2 class="result__title">${count !== -1 ? `Победа!` : `FAIL`}</h2>
-    ${getResultTable(state, count)}
+    ${[...games].reverse().map((game) => getResultTable(game)).join(``)}
   </section>
 `;
 };
@@ -99,7 +102,8 @@ const addEventListeners = (state) => {
 };
 
 const render = (state) => {
-  showScreen(getNodesFromString(getSection(state)));
+  allGames.push(state);
+  showScreen(getNodesFromString(getSection(allGames)));
   addEventListeners(state);
 };
 
