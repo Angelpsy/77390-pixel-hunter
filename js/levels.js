@@ -24,14 +24,16 @@ const levels = [
             photo: {
               value: `photo`,
               isCorrect: false,
+              text: `Фото`,
             },
             paint:
               {
                 value: `paint`,
                 isCorrect: true,
+                text: `Рисунок`,
               },
           },
-          allIdd: [`photo`, `paint`],
+          allIds: [`photo`, `paint`],
         },
       },
     ],
@@ -46,14 +48,16 @@ const levels = [
             photo: {
               value: `photo`,
               isCorrect: false,
+              text: `Фото`,
             },
             paint:
               {
                 value: `paint`,
                 isCorrect: true,
+                text: `Рисунок`,
               },
           },
-          allIdd: [`photo`, `paint`],
+          allIds: [`photo`, `paint`],
         },
       },
       {
@@ -63,14 +67,16 @@ const levels = [
             photo: {
               value: `photo`,
               isCorrect: false,
+              text: `Фото`,
             },
             paint:
               {
                 value: `paint`,
                 isCorrect: true,
+                text: `Рисунок`,
               },
           },
-          allIdd: [`photo`, `paint`],
+          allIds: [`photo`, `paint`],
         },
       },
     ],
@@ -95,7 +101,7 @@ const levels = [
               isCorrect: false,
             },
           },
-          allIdd: [`0`, `1`, `2`],
+          allIds: [`0`, `1`, `2`],
         },
       },
     ],
@@ -110,14 +116,16 @@ const levels = [
             photo: {
               value: `photo`,
               isCorrect: false,
+              text: `Фото`,
             },
             paint:
               {
                 value: `paint`,
                 isCorrect: true,
+                text: `Рисунок`,
               },
           },
-          allIdd: [`photo`, `paint`],
+          allIds: [`photo`, `paint`],
         },
       },
     ],
@@ -132,14 +140,16 @@ const levels = [
             photo: {
               value: `photo`,
               isCorrect: false,
+              text: `Фото`,
             },
             paint:
               {
                 value: `paint`,
                 isCorrect: true,
+                text: `Рисунок`,
               },
           },
-          allIdd: [`photo`, `paint`],
+          allIds: [`photo`, `paint`],
         },
       },
       {
@@ -149,14 +159,16 @@ const levels = [
             photo: {
               value: `photo`,
               isCorrect: false,
+              text: `Фото`,
             },
             paint:
               {
                 value: `paint`,
                 isCorrect: true,
+                text: `Рисунок`,
               },
           },
-          allIdd: [`photo`, `paint`],
+          allIds: [`photo`, `paint`],
         },
       },
     ],
@@ -181,7 +193,7 @@ const levels = [
               isCorrect: false,
             },
           },
-          allIdd: [`0`, `1`, `2`],
+          allIds: [`0`, `1`, `2`],
         },
       },
     ],
@@ -196,14 +208,16 @@ const levels = [
             photo: {
               value: `photo`,
               isCorrect: false,
+              text: `Фото`,
             },
             paint:
               {
                 value: `paint`,
                 isCorrect: true,
+                text: `Рисунок`,
               },
           },
-          allIdd: [`photo`, `paint`],
+          allIds: [`photo`, `paint`],
         },
       },
     ],
@@ -218,14 +232,16 @@ const levels = [
             photo: {
               value: `photo`,
               isCorrect: false,
+              text: `Фото`,
             },
             paint:
               {
                 value: `paint`,
                 isCorrect: true,
+                text: `Рисунок`,
               },
           },
-          allIdd: [`photo`, `paint`],
+          allIds: [`photo`, `paint`],
         },
       },
       {
@@ -235,14 +251,16 @@ const levels = [
             photo: {
               value: `photo`,
               isCorrect: false,
+              text: `Фото`,
             },
             paint:
               {
                 value: `paint`,
                 isCorrect: true,
+                text: `Рисунок`,
               },
           },
-          allIdd: [`photo`, `paint`],
+          allIds: [`photo`, `paint`],
         },
       },
     ],
@@ -267,7 +285,7 @@ const levels = [
               isCorrect: false,
             },
           },
-          allIdd: [`0`, `1`, `2`],
+          allIds: [`0`, `1`, `2`],
         },
       },
     ],
@@ -292,7 +310,7 @@ const levels = [
               isCorrect: false,
             },
           },
-          allIdd: [`0`, `1`, `2`],
+          allIds: [`0`, `1`, `2`],
         },
       },
     ],

@@ -3,36 +3,27 @@ import {showScreen} from './utils';
 import renderNextScreen from './level';
 import renderFirstScreen from './greeting';
 import getGameHeader from './template-parts/game-header';
+import getGameStats from './template-parts/game-stats';
 import {addAnswer, changeLevel} from '../store/reducers/index';
 
-const TEMPLATE = `
+const getGameSection = (state) => {
+  const levelState = state.levels[state.level];
+  return `
   <section class="game">
     <p class="game__task">Найдите рисунок среди изображений</p>
     <form class="game__content game__content--triple">
-      <div class="game__option" data-value="0">
-        <img src="http://placehold.it/304x455" alt="Option 1" width="304" height="455">
+    ${levelState.questions[0].urls.map((url, index) => {
+    return `
+      <div class="game__option" data-value="${index}">
+        <img src="${url}" alt="Option ${index}" width="304" height="455">
       </div>
-      <div class="game__option  game__option--selected" data-value="1">
-        <img src="http://placehold.it/304x455" alt="Option 2" width="304" height="455">
-      </div>
-      <div class="game__option" data-value="2">
-        <img src="http://placehold.it/304x455" alt="Option 3" width="304" height="455">
-      </div>
+`;
+  })}
     </form>
-    <ul class="stats">
-      <li class="stats__result stats__result--wrong"></li>
-      <li class="stats__result stats__result--slow"></li>
-      <li class="stats__result stats__result--fast"></li>
-      <li class="stats__result stats__result--correct"></li>
-      <li class="stats__result stats__result--wrong"></li>
-      <li class="stats__result stats__result--unknown"></li>
-      <li class="stats__result stats__result--slow"></li>
-      <li class="stats__result stats__result--unknown"></li>
-      <li class="stats__result stats__result--fast"></li>
-      <li class="stats__result stats__result--unknown"></li>
-    </ul>
+    ${getGameStats(state)}
   </section>
 `;
+};
 
 let _answer;
 
@@ -79,10 +70,12 @@ const addEventListeners = (state) => {
   document.querySelector(`.game__content`).addEventListener(`click`, handlerClick.bind(null, state));
 };
 
-const nodes = getNodesFromString(getGameHeader() + TEMPLATE);
+const getNodes = (state) => {
+  return getNodesFromString(getGameHeader(state) + getGameSection(state));
+};
 
 const render = (state) => {
-  showScreen(nodes);
+  showScreen(getNodes(state));
   addEventListeners(state);
 };
 

@@ -1,4 +1,5 @@
-const TEMPLATE = `
+const getGameHeader = (state) => {
+  return `
 <header class="header">
     <button class="back">
       <span class="visually-hidden">Вернуться к началу</span>
@@ -11,14 +12,10 @@ const TEMPLATE = `
     </button>
     <div class="game__timer">NN</div>
     <div class="game__lives">
-      <img src="img/heart__empty.svg" class="game__heart" alt=" Missed Life" width="31" height="27">
-      <img src="img/heart__full.svg" class="game__heart" alt="Life" width="31" height="27">
-      <img src="img/heart__full.svg" class="game__heart" alt="Life" width="31" height="27">
+    ${`<img src="img/heart__empty.svg" class="game__heart" alt=" Missed Life" width="31" height="27">`.repeat(3 - state.lives)}
+    ${`<img src="img/heart__full.svg" class="game__heart" alt="Life" width="31" height="27">`.repeat(state.lives)}
     </div>
 </header>`;
-
-const getGameHeader = () => {
-  return TEMPLATE;
 };
 
 export default getGameHeader;
