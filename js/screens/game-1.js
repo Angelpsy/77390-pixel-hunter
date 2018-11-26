@@ -5,6 +5,12 @@ import renderFirstScreen from './greeting';
 import getGameHeader from './template-parts/game-header';
 import getGameStats from './template-parts/game-stats';
 import {changeLevel, addAnswer, decrementLives} from '../store/reducers/index';
+import {resize} from '../utils/resize';
+
+const FRAME_FOR_IMG_SIZES = {
+  width: 468,
+  height: 458,
+};
 
 const getGameSection = (state) => {
   const levelState = state.levels[state.level];
@@ -13,8 +19,12 @@ const getGameSection = (state) => {
       <p class="game__task">Угадайте для каждого изображения фото или рисунок?</p>
       <form class="game__content">
         ${levelState.questions.map((question, index) => {
+    const imgSize = resize(FRAME_FOR_IMG_SIZES, {
+      width: question.imgs[0].width,
+      height: question.imgs[0].height,
+    });
     return `<div class="game__option">
-          <img src="${question.urls[0]}" alt="Option 1" width="468" height="458">
+          <img src="${question.imgs[0].url}" alt="Option 1" width="${imgSize.width}" height="${imgSize.height}">
           ${question.answers.allIds.map((id) => question.answers.byId[id]).map((answer) => {
     return `
             <label class="game__answer game__answer--${answer.value}">

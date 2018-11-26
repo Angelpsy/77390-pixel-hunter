@@ -2,14 +2,38 @@ import ConfigGameScreens from './configGameScreens';
 
 const images = {
   paintings: [
-    `https://k42.kn3.net/CF42609C8.jpg`,
-    `https://k42.kn3.net/D2F0370D6.jpg`,
-    `https://k32.kn3.net/5C7060EC5.jpg`,
+    {
+      url: `https://k42.kn3.net/CF42609C8.jpg`,
+      width: 600,
+      height: 831,
+    },
+    {
+      url: `https://k42.kn3.net/D2F0370D6.jpg`,
+      width: 468,
+      height: 354,
+    },
+    {
+      url: `https://k32.kn3.net/5C7060EC5.jpg`,
+      width: 1200,
+      height: 900,
+    },
   ],
   photos: [
-    `http://i.imgur.com/1KegWPz.jpg`,
-    `https://i.imgur.com/DiHM5Zb.jpg`,
-    `http://i.imgur.com/DKR1HtB.jpg`,
+    {
+      url: `http://i.imgur.com/1KegWPz.jpg`,
+      width: 1080,
+      height: 720,
+    },
+    {
+      url: `https://i.imgur.com/DiHM5Zb.jpg`,
+      width: 636,
+      height: 938,
+    },
+    {
+      url: `http://i.imgur.com/DKR1HtB.jpg`,
+      width: 354,
+      height: 937,
+    },
   ],
 };
 
@@ -18,7 +42,7 @@ const levels = [
     type: ConfigGameScreens.oneImage.id,
     questions: [
       {
-        urls: [images.paintings[0]],
+        imgs: [images.paintings[0]],
         answers: {
           byId: {
             photo: {
@@ -42,7 +66,7 @@ const levels = [
     type: ConfigGameScreens.twoImages.id,
     questions: [
       {
-        urls: [images.paintings[1]],
+        imgs: [images.paintings[1]],
         answers: {
           byId: {
             photo: {
@@ -61,7 +85,7 @@ const levels = [
         },
       },
       {
-        urls: [images.photos[0]],
+        imgs: [images.photos[0]],
         answers: {
           byId: {
             photo: {
@@ -85,7 +109,7 @@ const levels = [
     type: ConfigGameScreens.threeImages.id,
     questions: [
       {
-        urls: [images.paintings[1], images.photos[1], images.photos[0]],
+        imgs: [images.paintings[1], images.photos[1], images.photos[0]],
         answers: {
           byId: {
             0: {
@@ -110,7 +134,7 @@ const levels = [
     type: ConfigGameScreens.oneImage.id,
     questions: [
       {
-        urls: [images.paintings[0]],
+        imgs: [images.paintings[0]],
         answers: {
           byId: {
             photo: {
@@ -134,7 +158,7 @@ const levels = [
     type: ConfigGameScreens.twoImages.id,
     questions: [
       {
-        urls: [images.paintings[1]],
+        imgs: [images.paintings[1]],
         answers: {
           byId: {
             photo: {
@@ -153,7 +177,7 @@ const levels = [
         },
       },
       {
-        urls: [images.photos[0]],
+        imgs: [images.photos[0]],
         answers: {
           byId: {
             photo: {
@@ -177,7 +201,7 @@ const levels = [
     type: ConfigGameScreens.threeImages.id,
     questions: [
       {
-        urls: [images.paintings[1], images.photos[1], images.photos[0]],
+        imgs: [images.paintings[1], images.photos[1], images.photos[0]],
         answers: {
           byId: {
             0: {
@@ -202,7 +226,7 @@ const levels = [
     type: ConfigGameScreens.oneImage.id,
     questions: [
       {
-        urls: [images.paintings[0]],
+        imgs: [images.paintings[0]],
         answers: {
           byId: {
             photo: {
@@ -226,7 +250,7 @@ const levels = [
     type: ConfigGameScreens.twoImages.id,
     questions: [
       {
-        urls: [images.paintings[1]],
+        imgs: [images.paintings[1]],
         answers: {
           byId: {
             photo: {
@@ -245,7 +269,7 @@ const levels = [
         },
       },
       {
-        urls: [images.photos[0]],
+        imgs: [images.photos[0]],
         answers: {
           byId: {
             photo: {
@@ -269,7 +293,7 @@ const levels = [
     type: ConfigGameScreens.threeImages.id,
     questions: [
       {
-        urls: [images.paintings[1], images.photos[1], images.photos[0]],
+        imgs: [images.paintings[1], images.photos[1], images.photos[0]],
         answers: {
           byId: {
             0: {
@@ -294,7 +318,7 @@ const levels = [
     type: ConfigGameScreens.threeImages.id,
     questions: [
       {
-        urls: [images.paintings[1], images.photos[1], images.photos[0]],
+        imgs: [images.paintings[1], images.photos[1], images.photos[0]],
         answers: {
           byId: {
             0: {

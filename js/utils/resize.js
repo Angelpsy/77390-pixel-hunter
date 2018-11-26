@@ -1,3 +1,8 @@
+/**
+ * @param {{width: Number, height: Number}} frameSizes
+ * @param {{width: Number, height: Number}} givenSizes
+ * @return {{width: Number, height: Number}}
+ */
 export const resize = (frameSizes, givenSizes) => {
   const frameRatio = frameSizes.width / frameSizes.height;
   const givenRatio = givenSizes.width / givenSizes.height;
