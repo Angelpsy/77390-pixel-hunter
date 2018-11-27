@@ -1,4 +1,4 @@
-import {getNodesFromString} from '../utils';
+import {getNodesFromString} from '../utils/dom';
 
 const TEMPLATE = `
 <section class="modal">

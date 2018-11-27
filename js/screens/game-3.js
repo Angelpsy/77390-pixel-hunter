@@ -1,10 +1,16 @@
-import {getNodesFromString} from '../utils';
+import {getNodesFromString} from '../utils/dom';
 import {showScreen} from './utils';
 import renderNextScreen from './level';
 import renderFirstScreen from './greeting';
 import getGameHeader from './template-parts/game-header';
 import getGameStats from './template-parts/game-stats';
 import {addAnswer, changeLevel, decrementLives} from '../store/reducers/index';
+import {resize} from '../utils/resize';
+
+const FRAME_FOR_IMG_SIZES = {
+  width: 304,
+  height: 455,
+};
 
 const getGameSection = (state) => {
   const levelState = state.levels[state.level];
@@ -12,10 +18,14 @@ const getGameSection = (state) => {
   <section class="game">
     <p class="game__task">Найдите рисунок среди изображений</p>
     <form class="game__content game__content--triple">
-    ${levelState.questions[0].urls.map((url, index) => {
+    ${levelState.questions[0].imgs.map((img, index) => {
+    const imgSize = resize(FRAME_FOR_IMG_SIZES, {
+      width: img.width,
+      height: img.height,
+    });
     return `
       <div class="game__option" data-value="${index}">
-        <img src="${url}" alt="Option ${index}" width="304" height="455">
+        <img src="${img.url}" alt="Option ${index}" width="${imgSize.width}" height="${imgSize.height}">
       </div>
 `;
   })}

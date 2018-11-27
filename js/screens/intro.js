@@ -1,4 +1,4 @@
-import {getNodesFromString} from '../utils';
+import {getNodesFromString} from '../utils/dom';
 import {showScreen} from './utils';
 import renderNextScreen from './greeting';
 
