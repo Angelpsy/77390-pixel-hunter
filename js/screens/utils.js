@@ -1,11 +1,9 @@
 const ROOT_EL = document.querySelector(`#main`);
 
 /**
- * @param {HTMLCollection} nodes
+ * @param {HTMLElement} node
  */
-export const showScreen = (nodes) => {
+export const showScreen = (node) => {
   ROOT_EL.innerHTML = ``;
-  [...nodes].forEach((node) => {
-    ROOT_EL.appendChild(node.cloneNode(true));
-  });
+  ROOT_EL.appendChild(node);
 };

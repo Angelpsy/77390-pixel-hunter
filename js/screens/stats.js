@@ -1,9 +1,7 @@
-import {getNodesFromString} from '../utils/dom';
-import {showScreen} from './utils';
-import renderFirstScreen from './greeting';
 import renderStats from './template-parts/game-stats';
 import {getResult} from '../store/reducers/index';
 import ConfigGame from '../configGame';
+import AbstractScreen from './abstract-screen';
 
 const allGames = [];
 
@@ -88,23 +86,23 @@ const getSection = (games) => {
 `;
 };
 
-const goFirstScreen = (state) => {
-  removeEventListeners();
-  renderFirstScreen(state);
-};
+export default class StatsScreen extends AbstractScreen {
+  constructor(props) {
+    super(props);
+    allGames.push(this.state);
+    this._allGames = allGames;
+  }
 
-const removeEventListeners = () => {
-  document.querySelector(`.back`).removeEventListener(`click`, goFirstScreen);
-};
+  get template() {
+    return getSection(this._allGames);
+  }
 
-const addEventListeners = (state) => {
-  document.querySelector(`.back`).addEventListener(`click`, goFirstScreen.bind(null, state));
-};
+  bind() {
+    const btnGoFistScreen = this.element.querySelector(`.back`);
+    btnGoFistScreen.addEventListener(`click`, this.handlerGoFirstScreen);
+  }
 
-const render = (state) => {
-  allGames.push(state);
-  showScreen(getNodesFromString(getSection(allGames)));
-  addEventListeners(state);
-};
-
-export default render;
+  handlerGoFirstScreen() {
+    throw new Error(`handlerGoFirstScreen is required in instance class`);
+  }
+}

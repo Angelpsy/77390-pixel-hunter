@@ -1,10 +1,10 @@
 /**
  * Создание HTML коллекции на основе переданной строки разметки
  * @param {String} string Строка с html разметкой
- * @return {HTMLCollection}
+ * @return {HTMLElement}
  */
 export const getNodesFromString = (string) => {
   const wrapper = document.createElement(`div`);
   wrapper.innerHTML = string.trim();
-  return wrapper.children;
+  return wrapper;
 };

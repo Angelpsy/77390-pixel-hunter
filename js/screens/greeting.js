@@ -1,50 +1,34 @@
-import {getNodesFromString} from '../utils/dom';
-import {showScreen} from './utils';
-import renderNextScreen from './rules';
+import AbstractScreen from './abstract-screen';
 
-const TEMPLATE = `
-<section class="greeting central--blur">
-    <img class="greeting__logo" src="img/logo_ph-big.svg" width="201" height="89" alt="Pixel Hunter">
-    <div class="greeting__asterisk asterisk"><span class="visually-hidden">Я просто красивая звёздочка</span>*</div>
-    <div class="greeting__challenge">
-      <h3 class="greeting__challenge-title">Лучшие художники-фотореалисты бросают тебе вызов!</h3>
-      <p class="greeting__challenge-text">Правила игры просты:</p>
-      <p class="greeting__challenge-text">Правила игры просты:</p>
-      <ul class="greeting__challenge-list">
-        <li>Нужно отличить рисунок от фотографии и сделать выбор.</li>
-        <li>Задача кажется тривиальной, но не думай, что все так просто.</li>
-        <li>Фотореализм обманчив и коварен.</li>
-        <li>Помни, главное — смотреть очень внимательно.</li>
-      </ul>
-    </div>
-    <button class="greeting__continue" type="button">
-      <span class="visually-hidden">Продолжить</span>
-      <svg class="icon" width="64" height="64" viewBox="0 0 64 64" fill="#000000">
-        <use xlink:href="img/sprite.svg#arrow-right"></use>
-      </svg>
-    </button>
-  </section>
-`;
+export default class GreetingScreen extends AbstractScreen {
+  get template() {
+    return `
+      <section class="greeting central--blur">
+        <img class="greeting__logo" src="img/logo_ph-big.svg" width="201" height="89" alt="Pixel Hunter">
+        <div class="greeting__asterisk asterisk"><span class="visually-hidden">Я просто красивая звёздочка</span>*</div>
+        <div class="greeting__challenge">
+          <h3 class="greeting__challenge-title">Лучшие художники-фотореалисты бросают тебе вызов!</h3>
+          <p class="greeting__challenge-text">Правила игры просты:</p>
+          <p class="greeting__challenge-text">Правила игры просты:</p>
+          <ul class="greeting__challenge-list">
+            <li>Нужно отличить рисунок от фотографии и сделать выбор.</li>
+            <li>Задача кажется тривиальной, но не думай, что все так просто.</li>
+            <li>Фотореализм обманчив и коварен.</li>
+            <li>Помни, главное — смотреть очень внимательно.</li>
+          </ul>
+        </div>
+        <button class="greeting__continue" type="button">
+          <span class="visually-hidden">Продолжить</span>
+          <svg class="icon" width="64" height="64" viewBox="0 0 64 64" fill="#000000">
+            <use xlink:href="img/sprite.svg#arrow-right"></use>
+          </svg>
+        </button>
+      </section>
+    `;
+  }
 
-const goNextScreen = (state) => {
-  removeEventListeners();
-  renderNextScreen(state);
-};
-
-const removeEventListeners = () => {
-  document.querySelector(`.greeting__continue `).removeEventListener(`click`, goNextScreen);
-};
-
-const addEventListeners = (state) => {
-  document.querySelector(`.greeting__continue `)
-    .addEventListener(`click`, goNextScreen.bind(null, state));
-};
-
-const nodes = getNodesFromString(TEMPLATE);
-
-const render = (state) => {
-  showScreen(nodes);
-  addEventListeners(state);
-};
-
-export default render;
+  bind() {
+    const btnNextScreen = this.element.querySelector(`.greeting__continue`);
+    btnNextScreen.addEventListener(`click`, this.handlerChangeScreen);
+  }
+}

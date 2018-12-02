@@ -1,11 +1,7 @@
-import {getNodesFromString} from '../utils/dom';
-import {showScreen} from './utils';
-import renderNextScreen from './level';
-import renderFirstScreen from './greeting';
 import getGameHeader from './template-parts/game-header';
 import getGameStats from './template-parts/game-stats';
-import {addAnswer, changeLevel, decrementLives} from '../store/reducers/index';
 import {resize} from '../utils/resize';
+import AbstractScreen from './abstract-screen';
 
 const FRAME_FOR_IMG_SIZES = {
   width: 705,
@@ -41,8 +37,6 @@ const getGameSection = (state) => {
 `;
 };
 
-let _answer;
-
 const checkIsCorrectAnswer = (state, answers) => {
   const questions = state.levels[state.level].questions;
   return questions.every((question, index) => {
@@ -50,48 +44,41 @@ const checkIsCorrectAnswer = (state, answers) => {
   });
 };
 
-const goNextScreen = (state) => {
-  removeEventListeners();
-  const isCorrectAnswer = checkIsCorrectAnswer(state, [_answer]);
-  let _state;
-  _state = addAnswer(state, {
-    time: 15,
-    isCorrect: isCorrectAnswer,
-  });
-  if (!isCorrectAnswer) {
-    _state = decrementLives(_state);
+export default class Game2Screen extends AbstractScreen {
+  constructor(props) {
+    super(props);
+
+    this._answer = undefined;
+    this.handlerChangeAnswer = this.handlerChangeAnswer.bind(this);
   }
-  _state = changeLevel(_state, state.level + 1);
-  renderNextScreen(_state);
-};
 
-const goFirstScreen = (state) => {
-  removeEventListeners();
-  renderFirstScreen(state);
-};
+  get template() {
+    return getGameHeader(this.state) + getGameSection(this.state);
+  }
 
-const handlerChangeAnswer = (state, event) => {
-  _answer = event.target.value;
-  goNextScreen(state);
-};
+  bind() {
+    const form = this.element.querySelector(`.game__content`);
+    form.addEventListener(`change`, this.handlerChangeAnswer);
 
-const removeEventListeners = () => {
-  document.querySelector(`.game__content`).removeEventListener(`change`, handlerChangeAnswer);
-  document.querySelector(`.back`).removeEventListener(`click`, goFirstScreen);
-};
+    const btnGoFistScreen = this.element.querySelector(`.back`);
+    btnGoFistScreen.addEventListener(`click`, this.handlerGoFirstScreen);
+  }
 
-const addEventListeners = (state) => {
-  document.querySelector(`.game__content`).addEventListener(`change`, handlerChangeAnswer.bind(null, state));
-  document.querySelector(`.back`).addEventListener(`click`, goFirstScreen.bind(null, state));
-};
+  setAnswer() {
+    const isCorrect = checkIsCorrectAnswer(this.state, [this._answer]);
+    this.answer = {
+      isCorrect,
+      time: 15,
+    };
+  }
 
-const getNodes = (state) => {
-  return getNodesFromString(getGameHeader(state) + getGameSection(state));
-};
+  handlerChangeAnswer() {
+    this._answer = event.target.value;
+    this.setAnswer();
+    this.handlerChangeScreen(this.state);
+  }
 
-const render = (state) => {
-  showScreen(getNodes(state));
-  addEventListeners(state);
-};
-
-export default render;
+  handlerGoFirstScreen() {
+    throw new Error(`handlerGoFirstScreen is required in instance class`);
+  }
+}
