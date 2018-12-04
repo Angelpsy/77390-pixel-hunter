@@ -44,7 +44,7 @@ export default class AbstractScreen {
   }
 
   /**
-   * need return this.state
+   * must return this.state
    */
   handlerChangeScreen() {
     throw new Error(`handlerChangeScreen is required`);
