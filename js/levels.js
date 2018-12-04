@@ -1,4 +1,4 @@
-import ConfigGameScreens from './configGameScreens';
+import ConfigGameScreens from './config-game-screens';
 
 const images = {
   paintings: [

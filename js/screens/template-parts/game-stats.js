@@ -1,4 +1,4 @@
-import ConfigGame from '../../configGame';
+import ConfigGame from '../../config-game';
 
 const getGameStats = (state) => {
   const _levelsResults = [...new Array(ConfigGame.AMOUNT_QUESTIONS)].map((_, index) => {

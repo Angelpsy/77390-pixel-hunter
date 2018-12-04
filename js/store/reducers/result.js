@@ -1,4 +1,4 @@
-import ConfigGame from '../../configGame';
+import ConfigGame from '../../config-game';
 
 /**
  * @param {{answers: {}[], lives: number}} state

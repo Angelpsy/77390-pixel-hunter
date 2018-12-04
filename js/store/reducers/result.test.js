@@ -1,6 +1,6 @@
 import {expect} from 'chai';
 import {getResult} from './result';
-import ConfigGame from '../../configGame';
+import ConfigGame from '../../config-game';
 
 describe(`reducer getResult`, () => {
   it(`should return number`, () => {

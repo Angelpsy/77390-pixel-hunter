@@ -1,5 +1,5 @@
 import {initState} from '../reducers/index';
-import ConfigGame from '../../configGame';
+import ConfigGame from '../../config-game';
 
 export const INITIAL_STATE = {
   level: 0,

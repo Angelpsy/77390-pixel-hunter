@@ -11,8 +11,8 @@ import StatsScreen from './screens/stats';
 import {showScreen} from './screens/utils';
 import {resetGame, addAnswer, changeLevel} from './store/reducers/index';
 import {INITIAL_STATE} from './store/state/index';
-import ConfigGame from './configGame';
-import configGameScreens from './configGameScreens';
+import ConfigGame from './config-game';
+import configGameScreens from './config-game-screens';
 
 const renderStats = (_state) => {
   const screen = new StatsScreen(_state);

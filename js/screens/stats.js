@@ -1,6 +1,6 @@
 import renderStats from './template-parts/game-stats';
 import {getResult} from '../store/reducers/index';
-import ConfigGame from '../configGame';
+import ConfigGame from '../config-game';
 import AbstractScreen from './abstract-screen';
 
 const allGames = [];
