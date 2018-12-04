@@ -36,9 +36,6 @@ export default class AbstractScreen {
     return getNodesFromString(this.template);
   }
 
-  /**
-   * need to get element
-   */
   bind() {
     throw new Error(`Bind is required`);
   }
