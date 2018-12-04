@@ -98,8 +98,8 @@ export default class StatsScreen extends AbstractScreen {
   }
 
   bind() {
-    const btnGoFistScreen = this.element.querySelector(`.back`);
-    btnGoFistScreen.addEventListener(`click`, this.handlerGoFirstScreen);
+    const btnGoFirstScreen = this.element.querySelector(`.back`);
+    btnGoFirstScreen.addEventListener(`click`, this.handlerGoFirstScreen);
   }
 
   handlerGoFirstScreen() {

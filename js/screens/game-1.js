@@ -66,8 +66,8 @@ export default class Game1Screen extends AbstractScreen {
     const form = this.element.querySelector(`.game__content`);
     form.addEventListener(`change`, this.handlerChangeAnswer);
 
-    const btnGoFistScreen = this.element.querySelector(`.back`);
-    btnGoFistScreen.addEventListener(`click`, this.handlerGoFirstScreen);
+    const btnGoFirstScreen = this.element.querySelector(`.back`);
+    btnGoFirstScreen.addEventListener(`click`, this.handlerGoFirstScreen);
   }
 
   setAnswer() {

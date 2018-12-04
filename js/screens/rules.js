@@ -51,8 +51,8 @@ export default class GreetingScreen extends AbstractScreen {
     const form = this.element.querySelector(`.rules__form`);
     form.addEventListener(`submit`, this.handlerChangeScreen);
 
-    const btnGoFistScreen = this.element.querySelector(`.back`);
-    btnGoFistScreen.addEventListener(`click`, this.handlerGoFirstScreen);
+    const btnGoFirstScreen = this.element.querySelector(`.back`);
+    btnGoFirstScreen.addEventListener(`click`, this.handlerGoFirstScreen);
   }
 
   handlerInputName(event) {
