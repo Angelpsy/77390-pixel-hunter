@@ -10,3 +10,4 @@ const Config = Object.freeze({
 });
 
 export default Config;
+export const TMP_TIME_ANSWER_AVERAGE = 15;

@@ -2,6 +2,7 @@ import getGameHeader from './template-parts/game-header';
 import getGameStats from './template-parts/game-stats';
 import {resize} from '../utils/resize';
 import AbstractScreen from './abstract-screen';
+import {TMP_TIME_ANSWER_AVERAGE} from '../config-game';
 
 const FRAME_FOR_IMG_SIZES = {
   width: 705,
@@ -68,7 +69,7 @@ export default class Game2Screen extends AbstractScreen {
     const isCorrect = checkIsCorrectAnswer(this.state, [this._answer]);
     this.answer = {
       isCorrect,
-      time: 15,
+      time: TMP_TIME_ANSWER_AVERAGE,
     };
   }
 
